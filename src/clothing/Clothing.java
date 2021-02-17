@@ -9,6 +9,8 @@ package clothing;
  */
 public interface Clothing extends Comparable<Clothing> {
   
+  int currentPower = 0;
+
   /**
    * Returns the power of the item has based upon its obsolescence. 
    * 
@@ -46,6 +48,6 @@ public interface Clothing extends Comparable<Clothing> {
    */
   int getPower();
 
-  int turnObsolence();
+
 
 }

@@ -59,6 +59,7 @@ public class AbstractClothing implements Clothing {
     this.effectiveTime = effectiveTime;
     this.name = name;
     this.turnAquired = turnAquired;
+    this.cursed = cursed;
     
     if (cursed == true) {
       this.power = power * -1;
@@ -90,18 +91,28 @@ public class AbstractClothing implements Clothing {
 
   @Override
   public int getPower() {
-    return this.power;
+    return this.currentPower;
   }
   
   @Override
   public String toString() {
     
 
-    String returnString = String.format("Name: %s", this.name);
-    returnString += String.format("\nCurrent Power: %o"
-        + "\nCursed: %b", 
-        this.currentPower, this.cursed);
     
+
+    String returnString = String.format("Name: %s", this.name);
+    returnString += String.format("\nCurrent Power: %d\nCursed: %b"
+        + "\nAttack or Defense: %s"
+        + "\nEffective Time: %d"
+        + "\nOriginal Power: %d"
+        + "\nObsolescence: %s", 
+        this.currentPower, this.cursed,
+        this.attackOrDefense,
+        this.effectiveTime,
+        this.power,
+        this.obsolescence);
+  
+
     return returnString;
   }
 
@@ -127,15 +138,17 @@ public class AbstractClothing implements Clothing {
     //Done after 25% use
     if (this.obsolescence == Obsolescence.NEVER
         && turnsInUse <= this.effectiveTime) {
+      this.currentPower = this.power;
       return this.power;
-    } else if (this.effectiveTime > turnsInUse) {
+    } else if (this.effectiveTime < turnsInUse) {
       this.currentPower = 0;
       return 0;
     } else if (this.obsolescence == Obsolescence.FAST) {
       if (turnsInUse <= firstQuarter) {
         return this.power;
       } else {
-        return this.power;
+        this.currentPower = 0;
+        return this.currentPower;
       }
       
       
@@ -149,6 +162,7 @@ public class AbstractClothing implements Clothing {
         this.currentPower = this.power / 2;
         return this.power / 2;
       } else {
+        this.currentPower = 0;
         return 0;
       }
       
@@ -185,22 +199,15 @@ public class AbstractClothing implements Clothing {
    */
   @Override
   public int compareTo(Clothing o) {
-    if (o.getPower() > this.power) {
-      return 1;
-    } else if (o.getPower() <= this.power) {
+    if (o.getPower() > this.currentPower) {
       return -1;
+    } else  {
+      return 1;
     }
-    return 0;
+
   }
 
 
 
-
-  //TODO: fingure out why not registering
-  @Override
-  public int turnObsolence() {
-    // TODO Auto-generated method stub
-    return 0;
-  }
 
 }
