@@ -1,0 +1,45 @@
+1. About/Overview. 
+
+Equipping Characters builds a random mini game between two characters. They are equipped with weapons and defensive items.
+They characters play back and forth over multiple rounds until one of their hit points drops below 0.
+
+2. List of features. 
+    - Clothing, AbstractClothing
+        -Head Gear
+        -Hand Gear
+        -Foot Wear
+        -Jewelry
+        
+     -Clothing List of Nodes
+        -Element Node + A list of nodes
+        - Empty Node
+        
+     -Player, Player Class
+        -Manages the list of items
+        -responds to power boosts, attacks, and defense strengthening 
+        -Prints a toString() method that gives insight into the game. 
+
+3. How To Run. Instructions to run the program should include the following:
+
+4. How to run the jar file
+cd into the res/ directory in terminal and run:
+    java -jar equip.jar
+
+5. Description of Example Runs. When providing example runs, describe what each example run does. For example:
+
+Run 1 -- Filename: top_level.txt:
+  1. Runs Driver.java which is an output of a random game
+  
+
+6. Changes:
+
+On Friday, I read more deeply into the grading rubric and refactored my code to include the element list. 
+It was the only way I could see avoiding many if statements. 
+
+7. Assumptions:
+
+I assumed the names of the characters, as well as their skill sets.
+I also assumed they could have negative scores if they were cursed.
+
+8. Limitations:
+    You cannot pick your weapons or name your own characters. 

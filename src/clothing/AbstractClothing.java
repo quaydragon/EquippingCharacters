@@ -61,7 +61,7 @@ public class AbstractClothing implements Clothing {
     this.turnAquired = turnAquired;
     this.cursed = cursed;
     
-    if (cursed == true) {
+    if (cursed) {
       this.power = power * -1;
     } else {
       this.power = power;
@@ -133,6 +133,7 @@ public class AbstractClothing implements Clothing {
     int secondQuarter = Math.floorDiv(this.effectiveTime, 2);
     int thirdQuarter = firstQuarter + secondQuarter;
     
+    
     // If the item does not lose power ever
     // If effective below or equal to the effective number of turns 
     //Done after 25% use
@@ -141,8 +142,8 @@ public class AbstractClothing implements Clothing {
       this.currentPower = this.power;
       return this.power;
     } else if (this.effectiveTime < turnsInUse) {
-      this.currentPower = 0;
-      return 0;
+      this.currentPower = this.currentPower * -1;
+      return this.currentPower;
     } else if (this.obsolescence == Obsolescence.FAST) {
       if (turnsInUse <= firstQuarter) {
         return this.power;
@@ -199,7 +200,16 @@ public class AbstractClothing implements Clothing {
    */
   @Override
   public int compareTo(Clothing o) {
-    if (o.getPower() > this.currentPower) {
+    
+    if (o.getType() == AttackOrDefense.ATTACK 
+        && o.getPower() > 0
+        && this.getType() == AttackOrDefense.DEFENSE) {
+      return -1;
+    } else if (this.getType() == AttackOrDefense.ATTACK
+        && this.getPower() > 0
+        && o.getType() == AttackOrDefense.DEFENSE) {
+      return 1;
+    } else if (o.getPower() > this.currentPower) {
       return -1;
     } else  {
       return 1;

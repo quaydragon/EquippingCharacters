@@ -47,6 +47,9 @@ public interface Clothing extends Comparable<Clothing> {
    * @return int of how powerful the item is
    */
   int getPower();
+  
+  
+ 
 
 
 

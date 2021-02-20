@@ -8,9 +8,18 @@ import clothing.HandGear;
 import clothing.HeadGear;
 import clothing.Jewelry;
 import clothing.Obsolescence;
+import clothingl.ElementNode;
+import clothingl.EmptyNode;
+import clothingl.ListOfItems;
 import org.junit.Before;
 import org.junit.Test;
 
+
+/**
+ * Tests both the clothing class and the clothing list.
+ * @author quaydragon
+ *
+ */
 public class TestClothing {
   public FootWear birkenstocks;
   public HandGear classRing;
@@ -19,12 +28,15 @@ public class TestClothing {
   public HandGear badGear;
   public HeadGear badHead;
   public FootWear badFoot;
+  public ListOfItems items;
 
   /**
    * Sets up clothing classes. 
    */
   @Before
   public void setUp() {
+    
+    
     birkenstocks = new FootWear(AttackOrDefense.ATTACK,
         false,
         Obsolescence.MEDIUM,
@@ -41,6 +53,8 @@ public class TestClothing {
         "Class Ring of Condenscension",
         2);
     
+    
+    
     bucketHat = new HeadGear(AttackOrDefense.DEFENSE,
         false,
         Obsolescence.FAST,
@@ -56,8 +70,49 @@ public class TestClothing {
         50,
         "Gold Chain of Light Power",
         4);
+    
+
+    
+    
+    items = new ElementNode(
+    birkenstocks,
+    new ElementNode(classRing,
+        new ElementNode(bucketHat,
+            new EmptyNode())));
+  }
+  
+  @Test
+  public void testGetDefense() {
+    
+    
+    assertEquals(50, items.getDefensiveStrength());
   }
 
+  @Test
+  public void testGetAttack() {
+    
+    
+    assertEquals(-25, items.getAttackPower());
+  }
+  
+  
+  @Test
+  public void testHeadGearNumber() {
+    assertEquals(1, items.headGearNumber());
+  }
+  
+  @Test
+  public void testFootWearNumber() {
+    assertEquals(1, items.footWearNumber());
+  }
+  
+  @Test
+  public void testHandGearNumber() {
+    assertEquals(1, items.handGearNumber());
+  }
+  
+  
+  
   @Test
   public void testSetUp() {
     
@@ -150,7 +205,7 @@ public class TestClothing {
     
 
     assertEquals(-35, classRing.turnObsolescence(50));
-    assertEquals(0, classRing.turnObsolescence(103));
+    assertEquals(35, classRing.turnObsolescence(103));
     
     // bucket hat - head gear - fast
     
